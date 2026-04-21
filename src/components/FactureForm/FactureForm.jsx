@@ -8,7 +8,7 @@ import Step2Articles from './Step2Articles';
 import Step3Suivi from './Step3Suivi';
 
 const FactureForm = ({ onDone, notify }) => {
-  const { data, update } = useApp();
+  const { data, update, user } = useApp();
   const { factures, clients, articles, categories } = data;
   const [step, setStep] = useState(1);
   const [client_id, setClientId] = useState('');
@@ -45,7 +45,14 @@ const FactureForm = ({ onDone, notify }) => {
     if (!validateStep1() || !validateStep2()) return;
     const fact = {
       id: genId(), numero: genInvoiceNum(factures), date_creation: new Date().toISOString().split('T')[0], client_id,
-      articles: lines.filter(l => l.designation), methode, remise_globale: parseInt(remise_globale) || 0, ...totals, ...meta, validated_by_admin: false, created_by: 'user'
+      articles: lines.filter(l => l.designation),
+      methode,
+      remise_globale: parseInt(remise_globale) || 0,
+      ...totals,
+      ...meta,
+      validated_by_admin: false,
+      created_by: user?.email || 'user',
+      created_by_uid: user?.uid || ''
     };
     await update('factures', [...factures, fact]);
     notify('Facture créée avec succès ✓');

@@ -22,7 +22,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="logo">
-        <h2>FacturaPro</h2>
+        <h2>Facturtiii</h2>
         <span>Gestion de facturation</span>
       </div>
       <div className="user-badge">

@@ -8,8 +8,20 @@ const ArticleList = ({ articles, categories, onEdit, onDelete }) => (
         <thead><tr><th>Désignation</th><th>Catégorie</th><th>Prix unitaire</th><th>Actions</th></tr></thead>
         <tbody>
           {articles.map(a => {
-            const cat = categories.find(c => c.id === a.categorie_id);
-            return <tr key={a.id}><td><strong>{a.designation}</strong></td><td><span className="tag">{cat?.nom || '—'}</span></td><td><strong>{fmtMoney(a.prix_unitaire)}</strong></td><td><button className="btn-icon" onClick={() => onEdit(a)}>✏️</button></td></tr>;
+            const cat = categories.find(c => String(c.id) === String(a.categorie_id));
+            return (
+              <tr key={a.id}>
+                <td><strong>{a.designation}</strong></td>
+                <td><span className="tag">{cat?.nom || '—'}</span></td>
+                <td><strong>{fmtMoney(a.prix_unitaire)}</strong></td>
+                <td>
+                  <div className="td-actions">
+                    <button className="btn-icon" onClick={() => onEdit(a)}>✏️</button>
+                    <button className="btn-icon" style={{ color: 'var(--danger)' }} onClick={() => onDelete(a.id)}>🗑</button>
+                  </div>
+                </td>
+              </tr>
+            );
           })}
         </tbody>
       </table>

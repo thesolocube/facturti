@@ -32,7 +32,7 @@ const AppContent = () => {
 
   // ✅ Conditions après hooks
   if (authLoading) {
-    return <div className="auth-loading">Chargement de la session...</div>;
+    return <div className="auth-loading">Sbar m3ana...</div>;
   }
 
   if (!user) {
@@ -40,7 +40,7 @@ const AppContent = () => {
   }
 
   if (loadingData) {
-    return <div className="auth-loading">Synchronisation des données...</div>;
+    return <div className="auth-loading">ra kan njibo les donnée...</div>;
   }
 
   const renderPage = () => {
@@ -53,6 +53,7 @@ const AppContent = () => {
           <FactureList
             data={data}
             role={role}
+            user={user}
             notify={notify}
             update={update}
             setPage={setPage}

@@ -35,7 +35,7 @@ const AuthScreen = ({ notify, notification }) => {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>FacturaPro</h1>
+        <h1>Facturtiiiii</h1>
         <p className="text-sm">
           {mode === 'login' ? 'Connecte-toi pour continuer' : 'Crée un compte client'}
         </p>

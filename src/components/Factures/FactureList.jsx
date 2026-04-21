@@ -5,7 +5,7 @@ import { generatePDF } from '../../utils/pdfGenerator';
 import FactureViewModal from './FactureViewModal';
 import FactureEditModal from './FactureEditModal';
 
-const FactureList = ({ data, role, notify, update, setPage }) => {
+const FactureList = ({ data, role, user, notify, update, setPage }) => {
   const { factures, clients } = data;
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
@@ -13,7 +13,14 @@ const FactureList = ({ data, role, notify, update, setPage }) => {
   const [viewing, setViewing] = useState(null);
   const clientMap = {};
   clients.forEach(c => clientMap[c.id] = c);
-  const filtered = factures.filter(f => {
+  const visibleFactures = role === 'admin'
+    ? factures
+    : factures.filter((f) =>
+      (f.created_by_uid && f.created_by_uid === user?.uid) ||
+      (f.created_by && f.created_by === user?.email)
+    );
+
+  const filtered = visibleFactures.filter(f => {
     if (filter !== 'all' && f.statut !== filter) return false;
     if (search) {
       const q = search.toLowerCase();
@@ -31,7 +38,7 @@ const FactureList = ({ data, role, notify, update, setPage }) => {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">Factures <span>{factures.length} au total</span></h1>
+        <h1 className="page-title">Factures <span>{visibleFactures.length} au total</span></h1>
         <div className="flex" style={{ gap: 8 }}>
           <div className="search-box"><span>🔍</span><input placeholder="Rechercher..." value={search} onChange={e => setSearch(e.target.value)} /></div>
           <button className="btn btn-primary" onClick={() => setPage('new-facture')}>＋ Nouvelle</button>

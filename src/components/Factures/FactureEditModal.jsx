@@ -30,6 +30,33 @@ const FactureEditModal = ({ f, onClose, notify }) => {
               <option value="rejected">Rejetée</option>
             </select>
           </div>
+          <div className="form-group">
+            <label className="form-label">Date de dépôt</label>
+            <input
+              type="date"
+              className="form-control"
+              value={form.date_depot}
+              onChange={e => setForm({ ...form, date_depot: e.target.value })}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Date d'encaissement</label>
+            <input
+              type="date"
+              className="form-control"
+              value={form.date_encaissement}
+              onChange={e => setForm({ ...form, date_encaissement: e.target.value })}
+            />
+          </div>
+          <div className="form-group form-full">
+            <label className="form-label">Type de virement</label>
+            <input
+              className="form-control"
+              value={form.type_virement}
+              onChange={e => setForm({ ...form, type_virement: e.target.value })}
+              placeholder="Ex: Virement bancaire"
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <button className="btn btn-secondary" onClick={onClose}>Annuler</button>
